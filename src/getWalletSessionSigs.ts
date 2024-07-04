@@ -1,29 +1,20 @@
 //NEW METHOD DO GET SESSION SIGS
 import { ethers } from "ethers";
 import { SiweMessage } from "siwe";
-import { LitNodeClient } from "@lit-protocol/lit-node-client";
-import { LitAbility } from "@lit-protocol/types";
-import {
-  LitAccessControlConditionResource,
-  LitActionResource,
-  LitPKPResource,
-  createSiweMessageWithRecaps,
-  generateAuthSig,
-  newSessionCapabilityObject,
-} from "@lit-protocol/auth-helpers";
-import { LIT_NETWORKS_KEYS } from "@lit-protocol/types";
+import { LitNodeClient } from '@lit-protocol/lit-node-client';
+import { LitAbility } from '@lit-protocol/types';
+import { LitAccessControlConditionResource, LitActionResource, LitPKPResource, createSiweMessageWithRecaps, generateAuthSig, newSessionCapabilityObject } from "@lit-protocol/auth-helpers";
+import {LIT_NETWORKS_KEYS} from '@lit-protocol/types';
 interface AuthSigProp {
   privateKey: string;
   chainId: number;
   litActionCid: string;
 }
 
-export const getWalletSessionSigs = async (
-  prop: AuthSigProp,
-  litNetwork: LIT_NETWORKS_KEYS
-) => {
+export const getWalletSessionSigs = async (prop: AuthSigProp, litNetwork: LIT_NETWORKS_KEYS) => {
   let { privateKey, chainId } = prop;
   const wallet = new ethers.Wallet(privateKey);
+
 
   const litNodeClient = new LitNodeClient({
     litNetwork: litNetwork,
@@ -34,11 +25,7 @@ export const getWalletSessionSigs = async (
 
   const nonce = await litNodeClient.getLatestBlockhash();
 
-  const authNeededCallback = async ({
-    resourceAbilityRequests,
-    expiration,
-    uri,
-  }) => {
+  const authNeededCallback = async ({ resourceAbilityRequests, expiration, uri }) => {
     const toSign = await createSiweMessageWithRecaps({
       uri,
       expiration,
