@@ -1,9 +1,8 @@
 //NEW METHOD DO GET SESSION SIGS
 import { ethers } from "ethers";
-import { SiweMessage } from "siwe";
 import { LitNodeClient } from '@lit-protocol/lit-node-client';
 import { LitAbility } from '@lit-protocol/types';
-import { LitAccessControlConditionResource, LitActionResource, LitPKPResource, createSiweMessageWithRecaps, generateAuthSig, newSessionCapabilityObject } from "@lit-protocol/auth-helpers";
+import { LitAccessControlConditionResource, LitActionResource, createSiweMessageWithRecaps, generateAuthSig, newSessionCapabilityObject } from "@lit-protocol/auth-helpers";
 import {LIT_NETWORKS_KEYS} from '@lit-protocol/types';
 interface AuthSigProp {
   privateKey: string;
@@ -26,6 +25,7 @@ export const getWalletSessionSigs = async (prop: AuthSigProp, litNetwork: LIT_NE
   const nonce = await litNodeClient.getLatestBlockhash();
 
   const authNeededCallback = async ({ resourceAbilityRequests, expiration, uri }) => {
+
     const toSign = await createSiweMessageWithRecaps({
       uri,
       expiration,
@@ -48,9 +48,9 @@ export const getWalletSessionSigs = async (prop: AuthSigProp, litNetwork: LIT_NE
     expiration: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(), // 24 hours
     resourceAbilityRequests: [
       {
-        resource: new LitActionResource("*"),
+        resource: new LitActionResource('*'),
         ability: LitAbility.LitActionExecution,
-      },
+      }
     ],
     // @ts-ignore
     authNeededCallback,
