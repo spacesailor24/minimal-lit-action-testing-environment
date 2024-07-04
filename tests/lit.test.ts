@@ -38,8 +38,8 @@ describe("Lit functions", () => {
   }, 30 * 1000); // time out of 30 seconds
   test("Sign transaction with fields that are in the whitelist", () => {
     const unsignedTx = {
-      chainId: 1n, //base
-      gasPrice: 61416194n,
+      chainId: 1, //base
+      gasPrice: 61416194,
       nonce: 1,
       from: '0x',
       to: '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb', //DAI in base chain
