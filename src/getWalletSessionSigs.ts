@@ -48,10 +48,6 @@ export const getWalletSessionSigs = async (prop: AuthSigProp, litNetwork: LIT_NE
     expiration: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(), // 24 hours
     resourceAbilityRequests: [
       {
-        resource: new LitPKPResource("*"),
-        ability: LitAbility.PKPSigning,
-      },
-      {
         resource: new LitActionResource("*"),
         ability: LitAbility.LitActionExecution,
       },
