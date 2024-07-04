@@ -187,7 +187,7 @@ export class Lit {
         ipfsId: this.lit_action_ipfs_id,
         sessionSigs,
         jsParams: {
-          txParams: unsignedTxn,
+          txParams: tx,
           toSign: messageToSign,
           publicKey: pkpPubKey,
           sigName: 'sig1',
